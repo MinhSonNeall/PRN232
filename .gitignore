@@ -1,0 +1,8 @@
+**/obj/
+**/bin/
+**/node_modules/
+**/.next/
+**/appsettings*.json
+!**/appsettings.Development.json.example
+**/.env.local
+**/.env
