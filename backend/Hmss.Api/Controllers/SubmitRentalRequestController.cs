@@ -55,7 +55,7 @@ public class SubmitRentalRequestController : ControllerBase
         var listing = await _listingRepo.FindByIdAsync(request.ListingId);
         if (listing == null) return NotFound("Listing not found");
 
-        var validation = await _logic.ValidateRequestabilityWithDuplicateCheckAsync(listing, tenantId);
+        var validation = await _logic.ValidateRequestabilityWithDuplicateCheckAsync(listing, tenantId, request.OccupantCount);
         if (!validation.IsValid)
             return BadRequest(new { Errors = validation.Errors });
 

@@ -14,6 +14,7 @@ public class RentalRequest
     public string PreferredContactMethod { get; private set; } = string.Empty; // Phone|Email|WhatsApp
     public string? SpecialNotes { get; private set; }
     public string Status { get; private set; } = "Pending"; // Pending|Accepted|Rejected|CancelledByTenant|RevokedByOwner
+    public string PaymentStatus { get; private set; } = "Unpaid"; // Unpaid|Paid|Failed
     public DateTime SubmittedAt { get; private set; }
     public DateTime? DecidedAt { get; private set; }
 
@@ -41,6 +42,7 @@ public class RentalRequest
             PreferredContactMethod = preferredContactMethod,
             SpecialNotes = specialNotes,
             Status = "Pending",
+            PaymentStatus = "Unpaid",
             SubmittedAt = DateTime.UtcNow
         };
     }
@@ -79,5 +81,15 @@ public class RentalRequest
         Status = "RevokedByOwner";
         DecidedAt = DateTime.UtcNow;
         return new StatusChangeResult(true);
+    }
+
+    public void MarkPaymentAsPaid()
+    {
+        PaymentStatus = "Paid";
+    }
+
+    public void MarkPaymentAsFailed()
+    {
+        PaymentStatus = "Failed";
     }
 }

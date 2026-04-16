@@ -131,6 +131,10 @@ builder.Services.AddSignalR();
 builder.Services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
 builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
 
+// Phase 12 — Payment (PayOS)
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<PaymentService>();
+
 var app = builder.Build();
 
 // Auto-create database, apply migrations, and seed data on startup
