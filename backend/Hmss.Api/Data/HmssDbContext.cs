@@ -14,6 +14,7 @@ public class HmssDbContext : DbContext
     public DbSet<OwnerVerification> OwnerVerifications { get; set; }
     public DbSet<ChatMessage> ChatMessages { get; set; }
     public DbSet<Conversation> Conversations { get; set; }
+    public DbSet<Payment> Payments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -62,8 +63,10 @@ public class HmssDbContext : DbContext
             e.Property(x => x.ContactPhone).HasMaxLength(50).IsRequired();
             e.Property(x => x.PreferredContactMethod).HasMaxLength(20).IsRequired();
             e.Property(x => x.Status).HasMaxLength(30).IsRequired();
+            e.Property(x => x.PaymentStatus).HasMaxLength(20).IsRequired();
             e.Property(x => x.BudgetExpectation).HasColumnType("decimal(18,2)");
             e.HasCheckConstraint("CK_RentalRequest_Status", "Status IN ('Pending', 'Accepted', 'Rejected', 'CancelledByTenant', 'RevokedByOwner')");
+            e.HasCheckConstraint("CK_RentalRequest_PaymentStatus", "PaymentStatus IN ('Unpaid', 'Paid', 'Failed')");
             // FK: RentalRequest.ListingId → RoomListing (NO ACTION)
             e.HasOne(x => x.Listing).WithMany().HasForeignKey(x => x.ListingId).OnDelete(DeleteBehavior.NoAction);
             // FK: RentalRequest.TenantId → UserAccount (NO ACTION)
@@ -110,6 +113,18 @@ public class HmssDbContext : DbContext
             e.HasCheckConstraint("CK_OwnerVerification_Status", "Status IN ('PendingReview', 'Verified', 'Rejected')");
             // FK: OwnerVerification.OwnerId → UserAccount (CASCADE)
             e.HasOne<UserAccount>().WithMany().HasForeignKey(x => x.OwnerId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Payment
+        builder.Entity<Payment>(e => {
+            e.HasKey(x => x.PaymentId);
+            e.Property(x => x.Amount).HasColumnType("decimal(18,2)").IsRequired();
+            e.Property(x => x.Status).HasMaxLength(20).IsRequired();
+            e.Property(x => x.PaymentMethod).HasMaxLength(50);
+            e.Property(x => x.TransactionId).HasMaxLength(100);
+            e.HasCheckConstraint("CK_Payment_Status", "Status IN ('Pending', 'Paid', 'Cancelled', 'Failed')");
+            // FK: Payment.RequestId → RentalRequest (CASCADE)
+            e.HasOne(x => x.Request).WithMany().HasForeignKey(x => x.RequestId).OnDelete(DeleteBehavior.Cascade);
         });
 
         // --- Seed Data ---
