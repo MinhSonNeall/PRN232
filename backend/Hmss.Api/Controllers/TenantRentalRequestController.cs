@@ -75,6 +75,7 @@ public class TenantRentalRequestController : ControllerBase
             ExpectedRentalDuration = request.ExpectedRentalDuration,
             OccupantCount = request.OccupantCount,
             OccupationCategory = request.OccupationCategory,
+            IsRoommateWanted = request.IsRoommateWanted,
             BudgetExpectation = request.BudgetExpectation,
             ContactPhone = request.ContactPhone,
             PreferredContactMethod = request.PreferredContactMethod,

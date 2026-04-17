@@ -61,7 +61,7 @@ public class SubmitRentalRequestController : ControllerBase
 
         var rentalRequest = RentalRequest.Create(
             request.ListingId, tenantId, request.MoveInDate, request.ExpectedRentalDuration,
-            request.OccupantCount, request.OccupationCategory, request.BudgetExpectation,
+            request.OccupantCount, request.OccupationCategory, request.IsRoommateWanted, request.BudgetExpectation,
             request.ContactPhone, request.PreferredContactMethod, request.SpecialNotes);
 
         var saved = await _requestRepo.SaveAsync(rentalRequest);

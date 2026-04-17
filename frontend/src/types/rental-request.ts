@@ -4,6 +4,7 @@ export interface RentalRequestDto {
   expectedRentalDuration: number
   occupantCount: number
   occupationCategory?: string
+  isRoommateWanted?: boolean
   budgetExpectation?: number
   contactPhone: string
   preferredContactMethod: string
@@ -27,6 +28,7 @@ export interface RequestDetailDto {
   expectedRentalDuration: number
   occupantCount: number
   occupationCategory?: string
+  isRoommateWanted?: boolean
   budgetExpectation?: number
   contactPhone: string
   preferredContactMethod: string

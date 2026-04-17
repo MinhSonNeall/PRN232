@@ -13,6 +13,7 @@ export function RentalRequestForm({ listingId }: { listingId: string }) {
     moveInDate: '',
     expectedRentalDuration: 1,
     occupantCount: 1,
+    isRoommateWanted: false,
     contactPhone: '',
     preferredContactMethod: 'Phone',
   })
@@ -58,6 +59,18 @@ export function RentalRequestForm({ listingId }: { listingId: string }) {
         onChange={e => setForm(f => ({ ...f, occupantCount: +e.target.value }))}
         required
       />
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id="isRoommateWanted"
+          checked={form.isRoommateWanted ?? false}
+          onChange={e => setForm(f => ({ ...f, isRoommateWanted: e.target.checked }))}
+          className="h-4 w-4 rounded border-stone-300"
+        />
+        <label htmlFor="isRoommateWanted" className="text-sm text-stone-700">
+          I want to find roommates to share
+        </label>
+      </div>
       <Input
         label="Contact Phone"
         value={form.contactPhone}

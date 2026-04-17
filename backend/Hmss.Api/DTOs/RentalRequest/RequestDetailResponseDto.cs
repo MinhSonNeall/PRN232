@@ -8,6 +8,7 @@ public class RequestDetailResponseDto
     public int ExpectedRentalDuration { get; set; }
     public int OccupantCount { get; set; }
     public string? OccupationCategory { get; set; }
+    public bool IsRoommateWanted { get; set; }
     public decimal? BudgetExpectation { get; set; }
     public string ContactPhone { get; set; } = string.Empty;
     public string PreferredContactMethod { get; set; } = string.Empty;
