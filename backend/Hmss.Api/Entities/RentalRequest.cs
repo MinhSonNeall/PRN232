@@ -9,6 +9,7 @@ public class RentalRequest
     public int ExpectedRentalDuration { get; private set; } // months
     public int OccupantCount { get; private set; }
     public string? OccupationCategory { get; private set; }
+    public bool IsRoommateWanted { get; private set; }
     public decimal? BudgetExpectation { get; private set; }
     public string ContactPhone { get; private set; } = string.Empty;
     public string PreferredContactMethod { get; private set; } = string.Empty; // Phone|Email|WhatsApp
@@ -25,7 +26,7 @@ public class RentalRequest
     private RentalRequest() { }
 
     public static RentalRequest Create(Guid listingId, Guid tenantId, DateOnly moveInDate, int expectedRentalDuration,
-        int occupantCount, string? occupationCategory, decimal? budgetExpectation, string contactPhone,
+        int occupantCount, string? occupationCategory, bool isRoommateWanted, decimal? budgetExpectation, string contactPhone,
         string preferredContactMethod, string? specialNotes)
     {
         return new RentalRequest
@@ -37,6 +38,7 @@ public class RentalRequest
             ExpectedRentalDuration = expectedRentalDuration,
             OccupantCount = occupantCount,
             OccupationCategory = occupationCategory,
+            IsRoommateWanted = isRoommateWanted,
             BudgetExpectation = budgetExpectation,
             ContactPhone = contactPhone,
             PreferredContactMethod = preferredContactMethod,
