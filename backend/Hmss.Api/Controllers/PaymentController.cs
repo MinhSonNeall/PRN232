@@ -19,11 +19,11 @@ public class PaymentController : ControllerBase
     }
 
     [HttpPost("create-link/{requestId:guid}")]
-    public async Task<IActionResult> CreatePaymentLink(Guid requestId)
+    public async Task<IActionResult> CreatePaymentLink(Guid requestId, [FromQuery] string? method = null)
     {
         try
         {
-            var (checkoutUrl, payment) = await _paymentService.CreatePaymentLinkAsync(requestId);
+            var (checkoutUrl, payment) = await _paymentService.CreatePaymentLinkAsync(requestId, method);
             return Ok(new PaymentLinkResponseDto
             {
                 PaymentId = payment.PaymentId,
