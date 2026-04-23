@@ -21,7 +21,7 @@ export function RequestList({ requests, onCancel }: Props) {
             <div>
               <h3 className="font-semibold text-stone-900">{r.listingTitle}</h3>
               <p className="mt-1 text-sm text-stone-500">
-                Move-in: {r.moveInDate} · Submitted: {new Date(r.submittedAt).toLocaleDateString()}
+                Move-in: {r.moveInDate} | Share: {r.isRoommateWanted ? 'Yes' : 'No'} | Submitted: {new Date(r.submittedAt).toLocaleDateString()}
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -42,3 +42,4 @@ export function RequestList({ requests, onCancel }: Props) {
     </div>
   )
 }
+

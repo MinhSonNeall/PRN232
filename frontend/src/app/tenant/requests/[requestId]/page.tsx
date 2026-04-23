@@ -8,8 +8,8 @@ import { ErrorMessage } from '@/components/shared/ErrorMessage'
 import { rentalRequestsApi } from '@/lib/api/rental-requests'
 import type { RequestDetailDto } from '@/types/rental-request'
 
-// Statuses where chat is available (non-terminal)
 const CHAT_ACTIVE_STATUSES = ['Pending', 'Accepted']
+const PAYMENT_ALLOWED_STATUSES = ['Accepted']
 
 export default function TenantRequestDetailPage() {
   const { requestId } = useParams<{ requestId: string }>()
@@ -33,16 +33,14 @@ export default function TenantRequestDetailPage() {
   if (!detail) return null
 
   const isChatActive = CHAT_ACTIVE_STATUSES.includes(detail.status)
-  const ownerLabel = detail.ownerName ?? 'Owner'
+  const isPaymentAllowed = PAYMENT_ALLOWED_STATUSES.includes(detail.status)
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 space-y-6">
-      {/* Back navigation */}
       <Link href="/tenant/requests" className="text-sm text-teal-600 hover:underline">
         &larr; Back to My Requests
       </Link>
 
-      {/* Request summary card */}
       <div className="rounded-2xl border border-stone-200 bg-white shadow-sm p-6 space-y-3">
         <h1 className="text-xl font-bold text-stone-900">{detail.listingTitle}</h1>
         <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-stone-600">
@@ -50,6 +48,7 @@ export default function TenantRequestDetailPage() {
           <span><span className="font-medium text-stone-700">Move-in:</span> {detail.moveInDate}</span>
           <span><span className="font-medium text-stone-700">Duration:</span> {detail.expectedRentalDuration} months</span>
           <span><span className="font-medium text-stone-700">Occupants:</span> {detail.occupantCount}</span>
+          <span><span className="font-medium text-stone-700">Share:</span> {detail.isRoommateWanted ? 'Yes' : 'No'}</span>
           <span><span className="font-medium text-stone-700">Contact:</span> {detail.contactPhone}</span>
           <span><span className="font-medium text-stone-700">Method:</span> {detail.preferredContactMethod}</span>
         </div>
@@ -64,11 +63,19 @@ export default function TenantRequestDetailPage() {
         </p>
       </div>
 
-      {/* Chat section — only shown for active (non-terminal) requests */}
+      {isPaymentAllowed && (
+        <Link
+          href={`/tenant/payment/${requestId}`}
+          className="block w-full rounded-xl bg-teal-600 px-4 py-3 text-center font-semibold text-white hover:bg-teal-700 transition-colors"
+        >
+          Proceed to Payment
+        </Link>
+      )}
+
       {isChatActive && (
         <section>
           <h2 className="mb-3 text-base font-semibold text-stone-800">Chat with Owner</h2>
-          <ChatBox requestId={requestId} otherPartyName={ownerLabel} />
+          <ChatBox requestId={requestId} otherPartyName={detail.ownerName ?? 'Owner'} />
         </section>
       )}
     </div>

@@ -56,6 +56,11 @@ export async function apiRequest<T>(
     throw new ApiError(res.status, errorText || `HTTP ${res.status}`)
   }
 
+  // Handle network errors
+  if (!res || res.type === 'error') {
+    throw new ApiError(0, 'Unable to connect to server')
+  }
+
   // Handle empty responses (204 No Content)
   const contentType = res.headers.get('content-type')
   if (!contentType || !contentType.includes('application/json')) {

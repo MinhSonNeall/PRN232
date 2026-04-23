@@ -147,7 +147,7 @@ public class HmssDbContext : DbContext
                 Email = "admin@hmss.local",
                 Phone = "0000000000",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123!"),
-                Role = "SystemAdmin",
+                Role = "Admin",
                 AccountStatus = "Active",
                 CreatedAt = seedDate
             },

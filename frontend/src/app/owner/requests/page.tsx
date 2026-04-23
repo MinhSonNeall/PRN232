@@ -11,6 +11,7 @@ interface OwnerRequestSummary {
   listingId: string
   tenantName: string
   moveInDate: string
+  isRoommateWanted: boolean
   status: string
   submittedAt: string
   contactPhone: string
@@ -94,6 +95,7 @@ export default function OwnerRequestsPage() {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
                             <div><span className="font-medium text-stone-500">Room:</span> <span className="text-stone-800">{r.listingTitle}</span></div>
                             <div><span className="font-medium text-stone-500">Property:</span> <span className="text-stone-800">{r.propertyName}</span></div>
+                            <div><span className="font-medium text-stone-500">Share:</span> <span className="text-stone-800">{r.isRoommateWanted ? 'Yes' : 'No'}</span></div>
                             <div><span className="font-medium text-stone-500">Contact Phone:</span> <a href={`tel:${r.contactPhone}`} className="text-teal-700 hover:underline">{r.contactPhone}</a></div>
                             <div><span className="font-medium text-stone-500">Submitted:</span> <span className="text-stone-800">{new Date(r.submittedAt).toLocaleDateString()}</span></div>
                             {r.specialNotes && (

@@ -48,6 +48,7 @@ public class ReviewRentalRequestController : ControllerBase
         ListingId = r.ListingId,
         TenantName = r.Tenant?.FullName ?? string.Empty,
         MoveInDate = r.MoveInDate,
+        IsRoommateWanted = r.IsRoommateWanted,
         Status = r.Status,
         SubmittedAt = r.SubmittedAt,
         ContactPhone = r.ContactPhone,

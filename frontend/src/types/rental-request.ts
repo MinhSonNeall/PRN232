@@ -15,6 +15,7 @@ export interface RentalRequestSummaryDto {
   requestId: string
   listingTitle: string
   moveInDate: string
+  isRoommateWanted: boolean
   status: 'Pending' | 'Accepted' | 'Rejected' | 'CancelledByTenant' | 'RevokedByOwner'
   submittedAt: string
   availableActions: string[]

@@ -41,6 +41,7 @@ public class TenantRentalRequestController : ControllerBase
                 RequestId = r.RequestId,
                 ListingTitle = r.Listing?.Title ?? string.Empty,
                 MoveInDate = r.MoveInDate,
+                IsRoommateWanted = r.IsRoommateWanted,
                 Status = r.Status,
                 SubmittedAt = r.SubmittedAt,
                 AvailableActions = actions
